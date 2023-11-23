@@ -3,7 +3,7 @@ import { Navbar } from "keep-react";
 import logo from ".././../../../assets/logo/logo.png";
 import { Link, NavLink } from "react-router-dom";
 import { IoIosMoon, IoMdSunny } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const NavBar = () => {
 
@@ -18,13 +18,22 @@ const NavBar = () => {
       html.classList.remove('light')
       html.classList.add('dark')
       setMode('dark')
+      localStorage.setItem('mode', 'dark')
     }
     else{
       html.classList.remove('dark')
       html.classList.add('light')
       setMode('light')
+      localStorage.setItem('mode', 'light')
     }
   }
+
+  useEffect(() =>{
+    const currentMode = localStorage.getItem('mode') || 'light'
+    setMode(currentMode)
+    const html = document.documentElement
+    html.classList.add(currentMode)
+  },[])
 
   const navLinks = (
     <>
@@ -60,12 +69,14 @@ const NavBar = () => {
       <Navbar className="container mx-auto dark:bg-zinc-800" fluid={true}>
         <Navbar.Container className="flex items-center justify-between">
           <Navbar.Container className="flex items-center">
+            <Link to='/'>
             <div className="flex items-center">
               <img className="w-12 md:w-16 lg:w-20" src={logo} alt="" />
               <h1 className="text-xl lg:text-2xl">
                 <span className="font-bold text-red-700">Blood</span> <br /> <span className="font-medium dark:text-white">Center</span>
               </h1>
             </div>
+            </Link>
             <Navbar.Collapse collapseType="sidebar" className="bg-slate-100 dark:bg-zinc-700">
               <Navbar.Container tag="ul" className="flex flex-col gap-5 font-medium dark:text-white">
                 {navLinks}
