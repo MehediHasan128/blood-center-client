@@ -70,8 +70,9 @@ const NavBar = () => {
   );
 
   return (
-    <div className="py-3">
-      <Navbar className="container mx-auto dark:bg-zinc-800" fluid={true}>
+    <div className="w-full fixed z-[10] bg-white dark:bg-zinc-800 py-3 bg-opacity-50 dark:bg-opacity-50">
+      <div className="container mx-auto">
+      <Navbar className="bg-transparent" fluid={true}>
         <Navbar.Container className="flex items-center justify-between">
           <Navbar.Container className="flex items-center">
             <Link to='/'>
@@ -121,6 +122,7 @@ const NavBar = () => {
           </Navbar.Container>
         </Navbar.Container>
       </Navbar>
+      </div>
     </div>
   );
 };
