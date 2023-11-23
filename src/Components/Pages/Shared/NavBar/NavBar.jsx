@@ -10,27 +10,32 @@ const NavBar = () => {
   const [icon, setIcon] = useState(false)
   const [mode, setMode] = useState('light');
 
-
   const handelChageMode = () =>{
     const html = document.documentElement
 
-    if(mode == 'light'){
+    if(mode == 'light' && icon == false){
       html.classList.remove('light')
       html.classList.add('dark')
       setMode('dark')
+      setIcon(true)
       localStorage.setItem('mode', 'dark')
+      localStorage.setItem('modeIcon', true)
     }
     else{
       html.classList.remove('dark')
       html.classList.add('light')
       setMode('light')
+      setIcon(false)
       localStorage.setItem('mode', 'light')
+      localStorage.setItem('modeIcon', false)
     }
   }
 
   useEffect(() =>{
     const currentMode = localStorage.getItem('mode') || 'light'
+    const currentModeIcon = JSON.parse(localStorage.getItem('modeIcon'))
     setMode(currentMode)
+    setIcon(currentModeIcon)
     const html = document.documentElement
     html.classList.add(currentMode)
   },[])
@@ -96,12 +101,12 @@ const NavBar = () => {
             <div className="text-3xl lg:text-4xl">
             {
                     icon ? 
-                    <IoMdSunny className="cursor-pointer dark:text-white" onClick={() => {
-                      setIcon(!icon)
+                    <IoMdSunny IoIosMoon className="cursor-pointer dark:text-white" onClick={() => {
+                      setIcon(icon)
                     handelChageMode()
                   }} /> : 
                     <IoIosMoon className="cursor-pointer" onClick={() => {
-                      setIcon(!icon)
+                      setIcon(icon)
                     handelChageMode()
                   }} />
             }
