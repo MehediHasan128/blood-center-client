@@ -7,6 +7,7 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAuthProvider from "../../../Hooks/useAuthProvider";
 
 
 
@@ -16,6 +17,8 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 
 const Registration = () => {
+
+  const {createUser, setUserProfile} = useAuthProvider();
 
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
@@ -57,27 +60,39 @@ const Registration = () => {
         })
   
         if(res.data.success){
-          const donerInformation = {
-            name: donerName,
-            email: donerEmail,
-            blodGroup,
-            district,
-            upazila,
-            image: res.data.data.display_url,
-            role: 'doner',
-            status: 'active'
-          }
-  
-          const donerRes = await axiosSecure.post('/users', donerInformation)
-            if(donerRes.data.insertedId){
-              Swal.fire({
-                icon: "success",
-                title: "Create user successfully",
-                showConfirmButton: false,
-                timer: 1000
-              });
+          createUser(donerEmail, password)
+          .then(result =>{
+            const user = result.user;
+            if(user.uid){
+
+              setUserProfile(user, donerName, res.data.data.display_url)
+
+              const donerInformation = {
+                name: donerName,
+                email: donerEmail,
+                blodGroup,
+                district,
+                upazila,
+                image: res.data.data.display_url,
+                role: 'doner',
+                status: 'active'
+              }
+
+              console.log(user);
+      
+              axiosSecure.post('/users', donerInformation)
+              .then(res => {
+                if(res.data.insertedId){
+                  Swal.fire({
+                    icon: "success",
+                    title: "Create user successfully",
+                    showConfirmButton: false,
+                    timer: 1000
+                  });
+                }
+              })
             }
-          
+          })          
         }
       }else{
         console.log('Do not match the password');
