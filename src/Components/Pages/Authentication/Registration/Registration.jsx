@@ -10,8 +10,7 @@ import Swal from "sweetalert2";
 import useAuthProvider from "../../../Hooks/useAuthProvider";
 
 
-
-
+// Image hostion api
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
@@ -101,11 +100,11 @@ const Registration = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen container mx-auto">
-      <div className="flex w-[80%] mx-auto">
-        <div className="w-[50%]">
+      <div className="flex flex-col lg:flex-row lg:w-[80%] mx-auto">
+        <div className="lg:w-[50%]">
           <img className="h-full object-cover" src={doner} alt="" />
         </div>
-        <div className="w-[50%] bg-slate-50 dark:bg-zinc-700 py-14">
+        <div className="lg:w-[50%] bg-slate-50 dark:bg-zinc-700 py-14">
           <h1 className="text-4xl text-center dark:text-white">Register as a doner</h1>
           <form onSubmit={handleSubmit(onSubmit)} className="w-[80%] mx-auto mt-8 space-y-5">
             <div className="px-5 py-2 flex items-center gap-3 border rounded-md">
@@ -127,7 +126,7 @@ const Registration = () => {
               />
             </div>
 
-            <div className="flex gap-5">
+            <div className="flex flex-col lg:flex-row gap-5">
               <div className="px-5 py-2 flex items-center gap-3 border rounded-md">
                 <TbPasswordFingerprint className="text-2xl text-gray-700 dark:text-white" />
                 <input
@@ -164,7 +163,7 @@ const Registration = () => {
               </select>
             </div>
 
-            <div className="flex gap-5">
+            <div className="flex flex-col lg:flex-row gap-5">
             <div className="px-5 py-2 flex items-center gap-3 border w-full rounded-md">
               <select className="bg-slate-50 dark:bg-zinc-700 px-5 py-2 w-full focus:outline-none"
               {...register('district', {
