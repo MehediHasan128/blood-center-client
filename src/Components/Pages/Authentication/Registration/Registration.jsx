@@ -5,10 +5,20 @@ import { TbPasswordFingerprint } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+
+
+
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
 
 const Registration = () => {
 
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const [districts, setDistricts] = useState([]);
     const [upazila, setUpazila] = useState([]);
     const {register, handleSubmit} = useForm();
@@ -28,7 +38,7 @@ const Registration = () => {
         })
     }
 
-    const onSubmit = (data) =>{
+    const onSubmit = async(data) =>{
       const donerName = data.name;
       const donerEmail = data.email;
       const blodGroup = data.bloodGroup;
@@ -37,7 +47,41 @@ const Registration = () => {
       const password = data.password;
       const checkPassword = data.checkPassword;
 
-      const image = data.image[0].name;
+      const imageFile = {image: data.image[0]};
+
+      if(password === checkPassword){
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+          headers: {
+            "content-type": "multipart/form-data"
+          }
+        })
+  
+        if(res.data.success){
+          const donerInformation = {
+            name: donerName,
+            email: donerEmail,
+            blodGroup,
+            district,
+            upazila,
+            image: res.data.data.display_url,
+            role: 'doner',
+            status: 'active'
+          }
+  
+          const donerRes = await axiosSecure.post('/users', donerInformation)
+            if(donerRes.data.insertedId){
+              Swal.fire({
+                icon: "success",
+                title: "Create user successfully",
+                showConfirmButton: false,
+                timer: 1000
+              });
+            }
+          
+        }
+      }else{
+        console.log('Do not match the password');
+      }
     }
 
   return (
