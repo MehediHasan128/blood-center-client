@@ -2,8 +2,25 @@ import doner from "../../../../assets/Banner/blood.jpg";
 import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { TbPasswordFingerprint } from "react-icons/tb";
+import { useEffect, useState } from "react";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const Registration = () => {
+
+    const axiosPublic = useAxiosPublic();
+    const [districts, setDistricts] = useState([]);
+
+    useEffect(() =>{
+        axiosPublic.get('/districts')
+        .then(res =>{
+            setDistricts(res.data);
+        })
+    },[axiosPublic])
+
+    const handelFindUpazila = (e) =>{
+        const districtName = e.target.value;
+    }
+
   return (
     <div className="flex justify-center items-center min-h-screen container mx-auto">
       <div className="flex w-[80%] mx-auto">
@@ -65,16 +82,11 @@ const Registration = () => {
 
             <div className="flex gap-5">
             <div className="px-5 py-2 flex items-center gap-3 border w-full rounded-md">
-              <select className="bg-slate-50 dark:bg-zinc-700 px-5 py-2 w-full focus:outline-none">
+              <select onChange={handelFindUpazila} className="bg-slate-50 dark:bg-zinc-700 px-5 py-2 w-full focus:outline-none">
                 <option>--- Select District ---</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
+                {
+                    districts.map(district => <option key={district._id} value={district.name}>{district.name}</option>)
+                }
               </select>
             </div>
             <div className="px-5 py-2 flex items-center gap-3 border w-full rounded-md">
