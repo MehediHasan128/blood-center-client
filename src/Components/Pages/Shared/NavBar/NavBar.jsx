@@ -110,10 +110,12 @@ const NavBar = () => {
                     </div>
                   </li>
                   {navLinks}
+                  <li onClick={handelLogout} >Logout</li>
                 </Navbar.Container>
               </Navbar.Collapse>
             </Navbar.Container>
 
+            <div className="flex items-center gap-10">
             <Navbar.Container
               tag="ul"
               className="lg:flex hidden items-center justify-between gap-8 dark:text-white text-lg font-semibold "
@@ -196,6 +198,7 @@ const NavBar = () => {
               </div>
               <Navbar.Toggle />
             </Navbar.Container>
+            </div>
           </Navbar.Container>
         </Navbar>
       </div>

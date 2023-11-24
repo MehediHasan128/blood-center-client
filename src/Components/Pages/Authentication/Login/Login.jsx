@@ -35,7 +35,7 @@ const Login = () => {
             <div className="px-5 py-2 flex items-center gap-3 border rounded-md">
               <MdEmail className="text-2xl text-gray-700 dark:text-white" />
               <input
-                className="bg-slate-50 dark:bg-zinc-700 px-5 py-2 w-full border-l-2 focus:outline-none"
+                className="bg-slate-50 dark:bg-zinc-700 px-5 py-2 w-full border-l-2 focus:outline-none dark:text-white"
                 type="email"
                 placeholder="Email"
                 {...register('email')}
@@ -44,7 +44,7 @@ const Login = () => {
             <div className="px-5 py-2 flex items-center gap-3 border rounded-md">
               <FaLock className="text-2xl text-gray-700 dark:text-white" />
               <input
-                className="bg-slate-50 dark:bg-zinc-700 px-5 py-2 w-full border-l-2 focus:outline-none"
+                className="bg-slate-50 dark:bg-zinc-700 px-5 py-2 w-full border-l-2 focus:outline-none dark:text-white"
                 type="password"
                 placeholder="Password"
                 {...register('password')}
