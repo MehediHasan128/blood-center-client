@@ -1,5 +1,6 @@
 import Achivment from "../Achivment/Achivment";
 import Banner from "../Banner/Banner";
+import Featured from "../Featured/Featured";
 import Organization from "../Organization/Organization";
 
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
                 <Organization />
             </div>
             <Achivment />
+            <Featured />
         </div>
     );
 };

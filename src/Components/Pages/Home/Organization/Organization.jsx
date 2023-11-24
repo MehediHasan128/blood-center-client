@@ -15,28 +15,28 @@ const Organization = () => {
 
   return (
     <div className="bg-slate-200 dark:bg-zinc-600">
-      <div className="container mx-auto py-24 flex items-center gap-20">
-        <div data-aos="fade-right" className="w-[60%] relative">
+      <div className="container mx-auto py-24 lg:py-48 flex flex-col lg:flex-row items-center gap-20">
+        <div data-aos="fade-right" className="lg:w-[60%] relative">
           <img
             className="w-full rounde brightness-75 rounded-xl"
             src={donate}
             alt=""
           />
           <img
-            className="w-64 h-64 object-cover rounded-full absolute top-48 -right-12 border-8"
+            className="w-64 h-64 object-cover rounded-full absolute top-32 md:top-96 lg:top-48 -right-1 md:right-2 lg:-right-12 border-8"
             src={doctor}
             alt=""
           />
         </div>
-        <div data-aos="fade-left" className="space-y-5">
-          <p className="text-red-700 text-xl font-medium">
+        <div data-aos="fade-left" className="space-y-5 mt-10 lg:mt-0 px-5 lg:px-0">
+          <p className="text-red-700 lg:text-xl font-medium">
             Help the people to donate blood
           </p>
-          <h1 className="text-6xl font-bold leading-tight dark:text-white">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold dark:text-white">
             Welcome to <span className="text-red-700">Blood</span> <br />
             Donors Organization
           </h1>
-          <p className="w-[70%] leading-relaxed dark:text-white">
+          <p className="md:w-[90%] lg:w-[70%] text-justify lg:text-left leading-relaxed dark:text-white">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod
             tempor incididunt ut labore et dolore magna aliqua. suspendisse the
             gravida. Risus commodo viverra maecenas
