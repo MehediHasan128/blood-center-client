@@ -6,6 +6,7 @@ import Login from "../Pages/Authentication/Login/Login";
 import Dashboard from "../Layout/Dashboard";
 import DashBoardHome from "../Pages/DashBoard/DashBoardHome/DashBoardHome";
 import DonationRequest from "../Pages/DashBoard/DonationRequest/DonationRequest";
+import MyDonationReq from "../Pages/DashBoard/MyDonationReq/MyDonationReq";
 
 const router = createBrowserRouter([
     {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashBoard/create-donation-request',
                 element: <DonationRequest />
+            },
+            {
+                path: '/dashBoard/my-donattion-request',
+                element: <MyDonationReq />
             }
         ]
     }
