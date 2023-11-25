@@ -3,10 +3,11 @@ import useAuthProvider from "../../../Hooks/useAuthProvider";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const DonationRequest = () => {
   const { user } = useAuthProvider();
-    const {register, handleSubmit} = useForm();
+    const {register, handleSubmit, reset} = useForm();
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
     const [districts, setDistricts] = useState([]);
@@ -42,7 +43,18 @@ const DonationRequest = () => {
 
     const requestInformation = {requesterName, requesterEmail, recipientName, recipientBloodGroup, recipientDistrict, recipientUpazila, reciptionDate, reciptionTime, donationStatus: 'Pending'}
 
-    // axiosSecure.post('/donationRequest', requestInformation)
+    axiosSecure.post('/donationRequest', requestInformation)
+    .then(res =>{
+        if(res.data.acknowledged){
+            reset()
+            Swal.fire({
+                icon: "success",
+                title: `${requesterName} you request successfull added`,
+                showConfirmButton: false,
+                timer: 1000
+              });
+        }
+    })
   }
 
   return (
@@ -151,7 +163,7 @@ const DonationRequest = () => {
               </div>
 
               <div>
-                <input type="submit" value="Submit" className="bg-red-700 px-5 py-3 rounded-md text-white" />
+                <input type="submit" value="Submit" className="bg-red-700 px-5 py-3 rounded-md text-white cursor-pointer" />
               </div>
             </div>
           </form>
