@@ -59,17 +59,17 @@ const Sidenav = () => {
         </Sidebar>
       </div>
       <Navbar fluid={true}>
-        <Navbar.Container className="flex items-center justify-end">
-          <Navbar.Collapse collapseType="sidebar" className="bg-slate-100 w-[90%] md:w-[60%]">
+        <Navbar.Container className="flex items-center">
+          <Navbar.Collapse collapseType="sidebar" className="bg-slate-100 w-[80%] md:w-[60%]">
             <Navbar.Container tag="ul" className="flex flex-col gap-5 text-lg font-medium">
               {sideNavLinks}
             </Navbar.Container>
           </Navbar.Collapse>
 
-          <Navbar.Container className="flex items-center gap-3">
+          <Navbar.Container className="flex items-center mt-5">
             <Navbar.Container
               tag="ul"
-              className="lg:flex hidden items-center justify-between gap-5"
+              className="lg:flex hidden items-center"
             ></Navbar.Container>
             <Navbar.Toggle />
           </Navbar.Container>

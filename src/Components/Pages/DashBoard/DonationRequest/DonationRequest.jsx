@@ -2,11 +2,13 @@ import { useForm } from "react-hook-form";
 import useAuthProvider from "../../../Hooks/useAuthProvider";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const DonationRequest = () => {
   const { user } = useAuthProvider();
     const {register, handleSubmit} = useForm();
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const [districts, setDistricts] = useState([]);
     const [upazila, setUpazila] = useState([]);
 
@@ -38,30 +40,30 @@ const DonationRequest = () => {
     const reciptionDate = data.date;
     const reciptionTime = data.time;
 
-    const donationRequest = {requesterName, requesterEmail, recipientName, recipientBloodGroup, recipientDistrict, recipientUpazila, reciptionDate, reciptionTime}
+    const requestInformation = {requesterName, requesterEmail, recipientName, recipientBloodGroup, recipientDistrict, recipientUpazila, reciptionDate, reciptionTime, donationStatus: 'Pending'}
 
-    console.log(donationRequest);
+    // axiosSecure.post('/donationRequest', requestInformation)
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center min-h-screen mb-20 lg:mb-0">
       <div className="w-[90%]">
-        <h1 className="text-4xl font-bold text-center leading-relaxed">
+        <h1 className="text-2xl lg:text-4xl font-bold text-center leading-relaxed">
           If you need a drop of <span className="text-red-700">blood</span>{" "}
           <br /> just fill the request form
         </h1>
-        <div className="mt-20">
-          <form onSubmit={handleSubmit(onSubmit)} className="w-[60%] mx-auto">
+        <div className="mt-10 lg:mt-20">
+          <form onSubmit={handleSubmit(onSubmit)} className="lg:w-[60%] mx-auto">
 
             {/* User Information */}
             <div className="relative">
               <hr />
-              <h1 className="font-semibold absolute -top-[11px] left-80 bg-white px-4">
+              <h1 className="text-base font-semibold absolute -top-3 lg:-top-[11px] left-[80px] lg:left-80 bg-white px-4">
                 Requester Information
               </h1>
             </div>
-            <div className="flex gap-3 my-16">
-              <div className="w-[50%]">
+            <div className="flex flex-col lg:flex-row gap-3 mt-10 lg:my-16 mb-10">
+              <div className="lg:w-[50%]">
                 <label className="font-semibold">Name</label>
                 <input
                   className="block w-full px-5 py-3 border rounded-md mt-2"
@@ -70,7 +72,7 @@ const DonationRequest = () => {
                   value={requesterName}
                 />
               </div>
-              <div className="w-[50%]">
+              <div className="lg:w-[50%]">
                 <label className="font-semibold">Email</label>
                 <input
                   className="block w-full px-5 py-3 border rounded-md mt-2"
@@ -85,13 +87,13 @@ const DonationRequest = () => {
             {/* Recipent Information */}
             <div className="relative">
               <hr />
-              <h1 className="font-semibold absolute -top-[11px] left-80 bg-white px-4">
+              <h1 className="text-base font-semibold absolute -top-3 lg:-top-[11px] left-[80px] lg:left-80 bg-white px-4">
                 Recipient Information
               </h1>
             </div>
             <div className="space-y-5 mt-10">
-              <div className="flex gap-3">
-                <div className="w-[50%]">
+              <div className="flex flex-col lg:flex-row gap-3">
+                <div className="lg:w-[50%]">
                   <label className="font-semibold">Recipient Name</label>
                   <input
                     className="block w-full px-5 py-3 border rounded-md mt-2"
@@ -100,7 +102,7 @@ const DonationRequest = () => {
                     placeholder="Enter the recipient name"
                   />
                 </div>
-                <div className="w-[50%]">
+                <div className="lg:w-[50%]">
                   <label className="font-semibold">Blood Group</label>
                   <select {...register('recipientBloodGroup')} className="block w-full px-5 py-3 border rounded-md mt-2">
                     <option value=''>--- Blood Group ---</option>
@@ -115,8 +117,8 @@ const DonationRequest = () => {
                   </select>
                 </div>
               </div>
-              <div className="flex gap-3">
-                <div className="w-[50%]">
+              <div className="flex flex-col lg:flex-row gap-3">
+                <div className="lg:w-[50%]">
                   <label className="font-semibold">Dstrict</label>
                   <select {...register('recipientDistrict', {
                     onChange: (e) => {handelFindUazila(e)}
@@ -127,7 +129,7 @@ const DonationRequest = () => {
                     }
                   </select>
                 </div>
-                <div className="w-[50%]">
+                <div className="lg:w-[50%]">
                   <label className="font-semibold">Upazila</label>
                   <select {...register('recipientUpazila')} className="block w-full px-5 py-3 border rounded-md mt-2">
                     <option value=''>--- Select Upazila ---</option>
@@ -137,12 +139,12 @@ const DonationRequest = () => {
                   </select>
                 </div>
               </div>
-              <div className="flex gap-3">
-                <div className="w-[50%]">
+              <div className="flex flex-col lg:flex-row gap-3">
+                <div className="lg:w-[50%]">
                   <label className="font-semibold">Date</label>
                   <input type="date" className="block w-full px-5 py-3 border rounded-md mt-2" {...register('date')} />
                 </div>
-                <div className="w-[50%]">
+                <div className="lg:w-[50%]">
                   <label className="font-semibold">Time</label>
                   <input type="time" className="block w-full px-5 py-3 border rounded-md mt-2" {...register('time')} />
                 </div>
