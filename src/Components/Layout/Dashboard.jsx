@@ -4,11 +4,11 @@ import Sidenav from "../Pages/DashBoard/SideNav/Sidenav";
 
 const Dashboard = () => {
     return (
-        <div>
-            <div>
+        <div className="flex">
+            <div className="lg:w-[20%]">
             <Sidenav />
             </div>
-            <div>
+            <div className="lg:flex-1">
                 <Outlet />
             </div>
         </div>

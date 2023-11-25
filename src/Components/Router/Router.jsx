@@ -4,6 +4,8 @@ import Home from "../Pages/Home/Home/Home";
 import Registration from "../Pages/Authentication/Registration/Registration";
 import Login from "../Pages/Authentication/Login/Login";
 import Dashboard from "../Layout/Dashboard";
+import DashBoardHome from "../Pages/DashBoard/DashBoardHome/DashBoardHome";
+import DonationRequest from "../Pages/DashBoard/DonationRequest/DonationRequest";
 
 const router = createBrowserRouter([
     {
@@ -25,11 +27,19 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: '/dashBoard',
+        path: 'dashBoard',
         element: <Dashboard />,
         children: [
             //doner routes
-            
+            {
+                path: '/dashBoard/home',
+                element: <DashBoardHome />,
+                
+            },
+            {
+                path: '/dashBoard/create-donation-request',
+                element: <DonationRequest />
+            }
         ]
     }
 ]);
