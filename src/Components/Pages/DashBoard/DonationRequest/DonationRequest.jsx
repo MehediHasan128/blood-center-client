@@ -38,10 +38,12 @@ const DonationRequest = () => {
     const recipientBloodGroup = data.recipientBloodGroup;
     const recipientDistrict = data.recipientDistrict;
     const recipientUpazila = data.recipientUpazila;
+    const hospitalName = data.hospitalName;
+    const fullAddress = data.fullAddress;
     const reciptionDate = data.date;
     const reciptionTime = data.time;
 
-    const requestInformation = {requesterName, requesterEmail, recipientName, recipientBloodGroup, recipientDistrict, recipientUpazila, reciptionDate, reciptionTime, donationStatus: 'Pending'}
+    const requestInformation = {requesterName, requesterEmail, recipientName, recipientBloodGroup, recipientDistrict, recipientUpazila, hospitalName, fullAddress, reciptionDate, reciptionTime, donationStatus: 'Pending'}
 
     axiosSecure.post('/donationRequest', requestInformation)
     .then(res =>{
@@ -80,7 +82,6 @@ const DonationRequest = () => {
                 <input
                   className="block w-full px-5 py-3 border rounded-md mt-2"
                   type="text"
-                  {...register('requesterName')}
                   value={requesterName}
                 />
               </div>
@@ -89,7 +90,6 @@ const DonationRequest = () => {
                 <input
                   className="block w-full px-5 py-3 border rounded-md mt-2"
                   type="text"
-                  {...register('requesterEmail')}
                   value={requesterEmail}
                 />
               </div>
@@ -151,6 +151,26 @@ const DonationRequest = () => {
                   </select>
                 </div>
               </div>
+              <div className="flex flex-col lg:flex-row gap-3 mt-10 lg:my-16 mb-10">
+              <div className="lg:w-[50%]">
+                <label className="font-semibold">Hospital Name</label>
+                <input
+                  className="block w-full px-5 py-3 border rounded-md mt-2"
+                  type="text"
+                  {...register('hospitalName')}
+                  placeholder="Hospital Name"
+                />
+              </div>
+              <div className="lg:w-[50%]">
+                <label className="font-semibold">Address</label>
+                <input
+                  className="block w-full px-5 py-3 border rounded-md mt-2"
+                  type="text"
+                  {...register('fullAddress')}
+                  placeholder="Full Address"
+                />
+              </div>
+            </div>
               <div className="flex flex-col lg:flex-row gap-3">
                 <div className="lg:w-[50%]">
                   <label className="font-semibold">Date</label>
