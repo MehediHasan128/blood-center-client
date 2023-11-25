@@ -3,6 +3,7 @@ import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home/Home";
 import Registration from "../Pages/Authentication/Registration/Registration";
 import Login from "../Pages/Authentication/Login/Login";
+import Dashboard from "../Layout/Dashboard";
 
 const router = createBrowserRouter([
     {
@@ -21,6 +22,14 @@ const router = createBrowserRouter([
                 path: '/login',
                 element: <Login />
             }
+        ]
+    },
+    {
+        path: '/dashBoard',
+        element: <Dashboard />,
+        children: [
+            //doner routes
+            
         ]
     }
 ]);

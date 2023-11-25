@@ -68,6 +68,14 @@ const NavBar = () => {
       >
         Blog
       </NavLink>
+      <NavLink
+        to="/dashBoard"
+        className={({ isActive, isPending }) =>
+          isPending ? "pending" : isActive ? "text-red-700" : ""
+        }
+      >
+        DashBoard
+      </NavLink>
     </>
   );
 
