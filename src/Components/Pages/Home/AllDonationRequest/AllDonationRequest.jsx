@@ -1,48 +1,51 @@
 "use client";
+import useAllRequest from "../../../Hooks/useAllRequest";
 import useAuthProvider from "../../../Hooks/useAuthProvider";
-import useDonationReqCard from "../../../Hooks/useDonationReqCard";
-import { Badge, Button, Popover, Table } from "keep-react";
-import {
-  Cube,
-  DotsThreeOutline,
-  Pencil,
-  Trash,
-} from "phosphor-react";
+import { Badge, Button, Table } from "keep-react";
+import { Cube } from "phosphor-react";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
-const MyDonationReq = () => {
-  const { user } = useAuthProvider();
-  const [donationReq] = useDonationReqCard();
-  console.log(donationReq);
 
-  return (
-    <div className="lg:flex justify-center items-center min-h-screen">
-      <div>
-        <div className="text-center md:text-2xl lg:text-4xl font-bold lg:font-semibold">
-          <h1>
-            Hey <span className="text-red-700">{user?.displayName}</span>!
-          </h1>
-          <p className="mt-5">Here you can find your all donation request</p>
-        </div>
-        <div className="mt-20">
-          <Table>
-            <Table.Caption>
+const AllDonationRequest = () => {
+
+    const [allRequest, refetch] = useAllRequest();
+    const {user} = useAuthProvider();
+    const axiosSecure = useAxiosSecure();
+    const userEmail = user?.email;
+    
+    const donationRequest = allRequest.filter(req => req.requesterEmail !== userEmail);
+
+    const handelRequestDone = (id) =>{
+        const Status = 'Inprogress to Done'
+        axiosSecure.patch(`/donationRequest/${id}`, {Status})
+        .then(res =>{
+            if(res.data.modifiedCount > 0){
+                refetch();
+            }
+        })
+    }
+
+    return (
+        <div className="container mx-auto mt-10">
+            <Table>
+            <Table.Caption className="dark:bg-zinc-800 dark:text-white">
               <div className="my-5 flex flex-col lg:flex-row items-center justify-between px-6">
                 <div className="flex items-center gap-5">
                   <p className="text-body-1 font-semibold text-metal-600">
                     Total Request
                   </p>
                   <Badge size="xs" colorType="light" color="gray">
-                    {donationReq.length}
+                    {donationRequest.length}
                   </Badge>
                 </div>
                 <div className="flex items-center gap-5">
-                  <Button type="outlineGray" size="sm">
+                  <Button type="outlineGray" size="sm" className="dark:bg-zinc-700">
                     <span className="pr-2">
                       <Cube size={24} />
                     </span>
                     New member
                   </Button>
-                  <Button type="outlineGray" size="sm">
+                  <Button type="outlineGray" size="sm" className="dark:bg-zinc-700">
                     <span className="pr-2">
                       <Cube size={24} />
                     </span>
@@ -51,7 +54,7 @@ const MyDonationReq = () => {
                 </div>
               </div>
             </Table.Caption>
-            <Table.Head className="bg-slate-100">
+            <Table.Head className="bg-slate-100 dark:bg-zinc-600 dark:text-white">
               <Table.HeadCell className="min-w-[120px] lg:min-w-[160px]">
                 Recipitent Name
               </Table.HeadCell>
@@ -68,16 +71,13 @@ const MyDonationReq = () => {
                 Hospital Name
               </Table.HeadCell>
               <Table.HeadCell className="min-w-[120px] lg:min-w-[160px]">
-                Status
-              </Table.HeadCell>
-              <Table.HeadCell className="min-w-[120px] lg:min-w-[160px]">
                 Action
               </Table.HeadCell>
             </Table.Head>
             <Table.Body className="divide-y divide-gray-25">
-              {donationReq.map((card) => (
+              {donationRequest.map((card) => (
                 <>
-                  <Table.Row key={card._id} className="bg-white">
+                  <Table.Row key={card._id} className="bg-white dark:bg-zinc-500 dark:text-white">
                     <Table.Cell>
                       <p className="-mb-0.5 text-body-4 font-medium text-metal-600">
                         {card.recipientName}
@@ -105,52 +105,25 @@ const MyDonationReq = () => {
                       </p>
                     </Table.Cell>
                     <Table.Cell>
-                    <Button className={`border ${(card.Status === 'Inprogress to Done')? 'border-green-500' : 'border-red-600'}`} size="md" type="outlinePrimary">{card.Status}</Button>
-                    </Table.Cell>
-                    <Table.Cell>
-                      <Popover
-                        showDismissIcon={false}
-                        showArrow={false}
-                        className="w-48 p-2 border border-metal-100"
-                        additionalContent={
-                          <ul className="flex flex-col gap-1">
-                            <li className="hover:bg-metal-100 py-1 px-2 rounded">
-                              <button className="w-full flex items-center justify-between text-body-4 font-normal text-metal-600">
-                                <span>Delete</span>
-                                <span>
-                                  <Trash />
-                                </span>
-                              </button>
-                            </li>
-                            <li className="hover:bg-metal-100 py-1 px-2 rounded">
-                              <button className="w-full flex items-center justify-between text-body-4 font-normal text-metal-600">
-                                <span>Edit</span>
-                                <span>
-                                  <Pencil />
-                                </span>
-                              </button>
-                            </li>
-                          </ul>
-                        }
-                      >
-                        <Button type="outlineGray" size="xs" circle={true}>
-                          <DotsThreeOutline
-                            size={14}
-                            color="#5E718D"
-                            weight="bold"
-                          />
-                        </Button>
-                      </Popover>
+
+                    {
+                        (card.Status === 'Pending') ?
+                        <div className="flex gap-2">
+                            <Button onClick={() => handelRequestDone(card._id)} className="border border-green-600 dark:bg-slate-500" size="md" type="outlinePrimary">Done</Button>
+                            <Button className="border border-red-600 dark:bg-slate-500" size="md" type="outlinePrimary">Canceled</Button>
+                        </div> :
+                        <>
+                        
+                        </>
+                    }
                     </Table.Cell>
                   </Table.Row>
                 </>
               ))}
             </Table.Body>
-          </Table>
+            </Table>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
-export default MyDonationReq;
+export default AllDonationRequest;

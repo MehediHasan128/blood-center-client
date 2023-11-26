@@ -84,7 +84,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="w-full lg:fixed z-[10] bg-white dark:bg-zinc-800 py-3 bg-opacity-50 dark:bg-opacity-50">
+    <div className="w-full  z-[10] bg-white dark:bg-zinc-800 py-3 bg-opacity-50 dark:bg-opacity-50">
       <div className="container mx-auto">
         <Navbar className="bg-transparent" fluid={true}>
           <Navbar.Container className="flex items-center justify-between">

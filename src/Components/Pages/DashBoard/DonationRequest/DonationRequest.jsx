@@ -43,7 +43,7 @@ const DonationRequest = () => {
     const reciptionDate = data.date;
     const reciptionTime = data.time;
 
-    const requestInformation = {requesterName, requesterEmail, recipientName, recipientBloodGroup, recipientDistrict, recipientUpazila, hospitalName, fullAddress, reciptionDate, reciptionTime, donationStatus: 'Pending'}
+    const requestInformation = {requesterName, requesterEmail, recipientName, recipientBloodGroup, recipientDistrict, recipientUpazila, hospitalName, fullAddress, reciptionDate, reciptionTime, Status: 'Pending'}
 
     axiosSecure.post('/donationRequest', requestInformation)
     .then(res =>{
