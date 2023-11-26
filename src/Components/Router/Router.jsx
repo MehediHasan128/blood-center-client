@@ -8,6 +8,7 @@ import DashBoardHome from "../Pages/DashBoard/DashBoardHome/DashBoardHome";
 import DonationRequest from "../Pages/DashBoard/DonationRequest/DonationRequest";
 import MyDonationReq from "../Pages/DashBoard/MyDonationReq/MyDonationReq";
 import AllDonationRequest from "../Pages/Home/AllDonationRequest/AllDonationRequest";
+import PrivetRoute from "./PrivetRoute";
 
 const router = createBrowserRouter([
     {
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
     },
     {
         path: 'dashBoard',
-        element: <Dashboard />,
+        element: <PrivetRoute><Dashboard /></PrivetRoute>,
         children: [
             //doner routes
             {

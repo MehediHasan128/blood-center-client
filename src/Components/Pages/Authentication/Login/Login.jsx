@@ -3,22 +3,26 @@ import { FaLock } from "react-icons/fa6";
 import loginBg from "../../../../assets/Banner/blood.jpg";
 import { useForm } from "react-hook-form";
 import useAuthProvider from "../../../Hooks/useAuthProvider";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
 
     const {userLogin} = useAuthProvider();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const {register, handleSubmit} = useForm();
 
     const onSubmit = (data) =>{
-        console.log(data);
         const email = data.email;
         const password = data.password;
 
         userLogin(email, password)
         .then(result =>{
             const user = result.user;
-            console.log(user);
+            if(user.uid){
+              navigate(location?.state ? location.state : '/')
+            }
         })
      }
 
