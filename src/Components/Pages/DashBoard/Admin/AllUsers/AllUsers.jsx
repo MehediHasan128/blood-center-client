@@ -78,7 +78,7 @@ const AllUsers = () => {
                       </div>
                     </Table.Cell>
                     <Table.Cell>
-                      <Badge colorType="light" color="success" dot={true}>
+                      <Badge className={`font-semibold ${user.status === 'Active' ? 'text-green-500' : 'text-red-700'}`}>
                         {user.status}
                       </Badge>
                     </Table.Cell>

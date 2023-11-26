@@ -12,6 +12,7 @@ import PrivetRoute from "./PrivetRoute";
 import AllDonationReq from "../Pages/DashBoard/Admin/AllDonationReq/AllDonationReq";
 import AllUsers from "../Pages/DashBoard/Admin/AllUsers/AllUsers";
 import AdminRoute from "./AdminRoute";
+import Profile from "../Pages/DashBoard/Profile/Profile";
 
 const router = createBrowserRouter([
     {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashBoard/my-donattion-request',
                 element: <PrivetRoute><MyDonationReq /></PrivetRoute>
+            },
+            {
+                path: '/dashBoard/profile',
+                element: <Profile />
             },
 
 

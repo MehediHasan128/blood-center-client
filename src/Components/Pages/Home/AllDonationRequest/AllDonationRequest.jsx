@@ -74,6 +74,9 @@ const AllDonationRequest = () => {
                 Recipitent Name
               </Table.HeadCell>
               <Table.HeadCell className="min-w-[120px] lg:min-w-[160px]">
+                Blood Group
+              </Table.HeadCell>
+              <Table.HeadCell className="min-w-[120px] lg:min-w-[160px]">
                 Location
               </Table.HeadCell>
               <Table.HeadCell className="min-w-[120px] lg:min-w-[160px]">
@@ -96,6 +99,11 @@ const AllDonationRequest = () => {
                     <Table.Cell>
                       <p className="-mb-0.5 text-body-4 font-medium text-metal-600">
                         {card.recipientName}
+                      </p>
+                    </Table.Cell>
+                    <Table.Cell>
+                      <p className="-mb-0.5 text-body-4 font-medium text-metal-600">
+                        {card.recipientBloodGroup}
                       </p>
                     </Table.Cell>
                     <Table.Cell>
