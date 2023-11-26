@@ -9,6 +9,8 @@ import DonationRequest from "../Pages/DashBoard/DonationRequest/DonationRequest"
 import MyDonationReq from "../Pages/DashBoard/MyDonationReq/MyDonationReq";
 import AllDonationRequest from "../Pages/Home/AllDonationRequest/AllDonationRequest";
 import PrivetRoute from "./PrivetRoute";
+import AllDonationReq from "../Pages/DashBoard/Admin/AllDonationReq/AllDonationReq";
+import AllUsers from "../Pages/DashBoard/Admin/AllUsers/AllUsers";
 
 const router = createBrowserRouter([
     {
@@ -50,6 +52,17 @@ const router = createBrowserRouter([
             {
                 path: '/dashBoard/my-donattion-request',
                 element: <MyDonationReq />
+            },
+
+
+            // Admin Route
+            {
+                path: '/dashBoard/all-blood-donation-request',
+                element: <AllDonationReq />
+            },
+            {
+                path: '/dashBoard/all-users',
+                element: <AllUsers />
             }
         ]
     }

@@ -1,14 +1,16 @@
 "use client";
 import { Avatar, Dropdown, Navbar } from "keep-react";
-import { CaretRight, SignOut, SquaresFour } from "phosphor-react";
+import { CaretRight, SignOut } from "phosphor-react";
 import logo from ".././../../../assets/logo/logo.png";
 import { Link, NavLink } from "react-router-dom";
 import { IoIosMoon, IoMdSunny } from "react-icons/io";
 import { useEffect, useState } from "react";
 import useAuthProvider from "../../../Hooks/useAuthProvider";
+import useAdmin from "../../../Hooks/useAdmin";
 
 const NavBar = () => {
   const { user, userLogout } = useAuthProvider();
+  const [isAdmin, adminLoading] = useAdmin();
 
   const [icon, setIcon] = useState(false);
   const [mode, setMode] = useState("light");
@@ -52,7 +54,9 @@ const NavBar = () => {
       >
         Home
       </NavLink>
-      <NavLink
+      {
+        (!isAdmin && !adminLoading) && <>
+          <NavLink
         to="/donationRequest"
         className={({ isActive, isPending }) =>
           isPending ? "pending" : isActive ? "text-red-700" : ""
@@ -68,6 +72,8 @@ const NavBar = () => {
       >
         Blog
       </NavLink>
+        </>
+      }
       <NavLink
         to="/dashBoard"
         className={({ isActive, isPending }) =>
@@ -172,14 +178,6 @@ const NavBar = () => {
                             dismissOnClick={true}
                             placement="bottom-end"
                           >
-                            <Dropdown.Item
-                              icon={<SquaresFour size={20} color="#5E718D" />}
-                            >
-                              Dashboard
-                              <span className="ml-auto">
-                                <CaretRight size={20} color="#5E718D" />
-                              </span>
-                            </Dropdown.Item>
                             <Dropdown.Item
                               onClick={handelLogout}
                               icon={<SignOut size={20} color="#5E718D" />}

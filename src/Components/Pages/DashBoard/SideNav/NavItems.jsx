@@ -14,7 +14,7 @@ const NavItems = () => {
 
   return (
     <>
-      {isAdmin ? (
+      {(isAdmin) ? (
         <>
           <NavLink
             to="/dashBoard"

@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuthProvider from "../../../Hooks/useAuthProvider";
+import { Spinner } from "keep-react";
 
 
 // Image hostion api
@@ -24,6 +25,7 @@ const Registration = () => {
     const [districts, setDistricts] = useState([]);
     const [upazila, setUpazila] = useState([]);
     const {register, handleSubmit} = useForm();
+    const [loading, setLoading] = useState(false)
 
     useEffect(() =>{
         axiosPublic.get('/districts')
@@ -41,6 +43,7 @@ const Registration = () => {
     }
 
     const onSubmit = async(data) =>{
+      setLoading(true)
       const donerName = data.name;
       const donerEmail = data.email;
       const blodGroup = data.bloodGroup;
@@ -74,7 +77,7 @@ const Registration = () => {
                 upazila,
                 image: res.data.data.display_url,
                 role: 'doner',
-                status: 'active'
+                status: 'Active'
               }
 
               console.log(user);
@@ -88,6 +91,7 @@ const Registration = () => {
                     showConfirmButton: false,
                     timer: 1000
                   });
+                  setLoading(false)
                 }
               })
             }
@@ -191,8 +195,9 @@ const Registration = () => {
             <div className="px-5 py-2 flex items-center gap-3 border rounded-md">
                 <input className="bg-slate-50 dark:bg-zinc-700 px-5 py-2 w-full focus:outline-none" type="file" {...register('image')} />
             </div>
-            <div>
-                <input className="bg-red-700 hover:bg-red-800 duration-700 px-5 py-2 text-white rounded-md cursor-pointer" type="submit" value="Register" />
+            <div className="bg-red-700 w-fit hover:bg-red-800 duration-700 px-5 py-2 text-white rounded-md cursor-pointer flex items-center gap-3">
+              {loading && <Spinner color="info" size="md" />}
+                <input className="text-lg" type="submit" value="Register" />
             </div>
           </form>
         </div>
