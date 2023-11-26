@@ -1,6 +1,6 @@
 "use client";
 import { Avatar, Dropdown, Navbar } from "keep-react";
-import { CaretRight, SignOut } from "phosphor-react";
+import { CaretRight, SignOut, SquaresFour } from "phosphor-react";
 import logo from ".././../../../assets/logo/logo.png";
 import { Link, NavLink } from "react-router-dom";
 import { IoIosMoon, IoMdSunny } from "react-icons/io";
@@ -178,6 +178,14 @@ const NavBar = () => {
                             dismissOnClick={true}
                             placement="bottom-end"
                           >
+                            <Dropdown.Item
+                              icon={<SquaresFour size={20} color="#5E718D" />}
+                            >
+                              Dashboard
+                              <span className="ml-auto">
+                                <CaretRight size={20} color="#5E718D" />
+                              </span>
+                            </Dropdown.Item>
                             <Dropdown.Item
                               onClick={handelLogout}
                               icon={<SignOut size={20} color="#5E718D" />}

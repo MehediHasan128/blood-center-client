@@ -9,6 +9,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuthProvider from "../../../Hooks/useAuthProvider";
 import { Spinner } from "keep-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 // Image hostion api
@@ -25,7 +26,9 @@ const Registration = () => {
     const [districts, setDistricts] = useState([]);
     const [upazila, setUpazila] = useState([]);
     const {register, handleSubmit} = useForm();
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() =>{
         axiosPublic.get('/districts')
@@ -92,6 +95,7 @@ const Registration = () => {
                     timer: 1000
                   });
                   setLoading(false)
+                  navigate(location?.state ? location.state : '/')
                 }
               })
             }

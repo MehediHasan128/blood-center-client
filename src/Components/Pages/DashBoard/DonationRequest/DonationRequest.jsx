@@ -4,12 +4,14 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useSpecificUser from "../../../Hooks/useSpecificUser";
 
 const DonationRequest = () => {
   const { user } = useAuthProvider();
     const {register, handleSubmit, reset} = useForm();
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
+    const [specificUser] = useSpecificUser();
     const [districts, setDistricts] = useState([]);
     const [upazila, setUpazila] = useState([]);
 
@@ -45,7 +47,8 @@ const DonationRequest = () => {
 
     const requestInformation = {requesterName, requesterEmail, recipientName, recipientBloodGroup, recipientDistrict, recipientUpazila, hospitalName, fullAddress, reciptionDate, reciptionTime, Status: 'Pending'}
 
-    axiosSecure.post('/donationRequest', requestInformation)
+    if(specificUser.status === 'Active'){
+      axiosSecure.post('/donationRequest', requestInformation)
     .then(res =>{
         if(res.data.acknowledged){
             reset()
@@ -57,6 +60,14 @@ const DonationRequest = () => {
               });
         }
     })
+    }
+    else{
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You account is blocked"
+      });
+    }
   }
 
   return (

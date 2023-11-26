@@ -15,7 +15,7 @@ const Featured = () => {
 
     return (
         <div className="container mx-auto my-20 dark:text-white">
-            <h1 className="text-center text-5xl font-bold">Our Service</h1>
+            <h1 className="text-center text-5xl font-bold">Our <span className='text-red-700'>Service</span></h1>
             <div className='lg:w-[80%] mx-auto mt-20'>
                 <div data-aos="fade-right" className='flex flex-col md:flex-row items-center'>
                     <div className='md:w-[50%]'>

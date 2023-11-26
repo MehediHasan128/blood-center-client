@@ -11,6 +11,7 @@ import AllDonationRequest from "../Pages/Home/AllDonationRequest/AllDonationRequ
 import PrivetRoute from "./PrivetRoute";
 import AllDonationReq from "../Pages/DashBoard/Admin/AllDonationReq/AllDonationReq";
 import AllUsers from "../Pages/DashBoard/Admin/AllUsers/AllUsers";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
     {
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/donationRequest',
-                element: <AllDonationRequest />
+                element: <PrivetRoute><AllDonationRequest /></PrivetRoute>
             }
         ]
     },
@@ -47,22 +48,22 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashBoard/create-donation-request',
-                element: <DonationRequest />
+                element: <PrivetRoute><DonationRequest /></PrivetRoute>
             },
             {
                 path: '/dashBoard/my-donattion-request',
-                element: <MyDonationReq />
+                element: <PrivetRoute><MyDonationReq /></PrivetRoute>
             },
 
 
             // Admin Route
             {
                 path: '/dashBoard/all-blood-donation-request',
-                element: <AllDonationReq />
+                element: <AdminRoute><AllDonationReq /></AdminRoute>
             },
             {
                 path: '/dashBoard/all-users',
-                element: <AllUsers />
+                element: <AdminRoute><AllUsers /></AdminRoute>
             }
         ]
     }

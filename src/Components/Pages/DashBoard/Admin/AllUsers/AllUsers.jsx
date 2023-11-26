@@ -1,13 +1,28 @@
 import useAllUsers from "../../../../Hooks/useAllUsers";
 ("use client");
 import { Avatar, Badge, Table } from "keep-react";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const AllUsers = () => {
-  const [allUser] = useAllUsers();
+  const [allUser, refetch] = useAllUsers();
   const users = allUser.filter((u) => u.role !== "Admin");
+  const axiosSecure = useAxiosSecure();
 
-  const handelBlockUser = (id) =>{
-    console.log(id);
+  const handelBlockUser = (id, status) =>{
+    axiosSecure.patch(`/users/${id}`, {status})
+    .then(res => {
+        if(res.data.modifiedCount > 0){
+            refetch();
+            Swal.fire({
+                icon: "success",
+                title: `User ${status}`,
+                showConfirmButton: false,
+                timer: 1000
+              });
+        }
+    })
+    
   }
 
   return (
@@ -72,9 +87,15 @@ const AllUsers = () => {
                     </Table.Cell>
                     <Table.Cell>{user.email}</Table.Cell>
                     <Table.Cell>
-                      <button onClick={() =>handelBlockUser(user._id)} className="border border-red-700 px-4 py-2 rounded-md -mb-0.5 text-body-4 font-medium text-metal-600">
+                     {
+                        (user.status === 'Active') ?
+                        <button onClick={() =>handelBlockUser(user._id, 'Blocked')} className="border border-red-700 px-4 py-2 rounded-md -mb-0.5 text-body-4 font-medium text-metal-600">
                         Block
-                      </button>
+                      </button> :
+                       <button onClick={() =>handelBlockUser(user._id, 'Active')} className="border border-red-700 px-4 py-2 rounded-md -mb-0.5 text-body-4 font-medium text-metal-600">
+                       Unblock
+                     </button>
+                     }
                     </Table.Cell>
                   </Table.Row>
                 </>
