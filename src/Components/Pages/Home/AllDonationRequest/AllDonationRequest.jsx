@@ -4,6 +4,8 @@ import useAuthProvider from "../../../Hooks/useAuthProvider";
 import { Badge, Button, Table } from "keep-react";
 import { Cube } from "phosphor-react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { TiTickOutline } from "react-icons/ti";
 
 
 const AllDonationRequest = () => {
@@ -12,6 +14,7 @@ const AllDonationRequest = () => {
     const {user} = useAuthProvider();
     const axiosSecure = useAxiosSecure();
     const userEmail = user?.email;
+    const donerName = user?.displayName;
     
     const donationRequest = allRequest.filter(req => req.requesterEmail !== userEmail);
 
@@ -21,6 +24,18 @@ const AllDonationRequest = () => {
         .then(res =>{
             if(res.data.modifiedCount > 0){
                 refetch();
+                const donerInformation = {donerName, userEmail}
+                axiosSecure.post('/doners', donerInformation)
+                .then(res =>{
+                    if(res.data.insertedId){
+                        Swal.fire({
+                            icon: "success",
+                            title: 'Thanks for your donation',
+                            showConfirmButton: false,
+                            timer: 1000
+                          });
+                    }
+                })
             }
         })
     }
@@ -113,7 +128,7 @@ const AllDonationRequest = () => {
                             <Button className="border border-red-600 dark:bg-slate-500" size="md" type="outlinePrimary">Canceled</Button>
                         </div> :
                         <>
-                        
+                        <TiTickOutline className="text-4xl text-green-500" />
                         </>
                     }
                     </Table.Cell>
