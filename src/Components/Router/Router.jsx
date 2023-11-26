@@ -34,12 +34,12 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: 'dashBoard',
+        path: '/dashBoard',
         element: <PrivetRoute><Dashboard /></PrivetRoute>,
         children: [
             //doner routes
             {
-                path: '/dashBoard/home',
+                path: '/dashBoard',
                 element: <DashBoardHome />,
                 
             },
