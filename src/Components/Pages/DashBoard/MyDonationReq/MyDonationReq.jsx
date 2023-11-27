@@ -1,18 +1,34 @@
 "use client";
+import Swal from "sweetalert2";
 import useAuthProvider from "../../../Hooks/useAuthProvider";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useDonationReqCard from "../../../Hooks/useDonationReqCard";
 import { Badge, Button, Popover, Table } from "keep-react";
-import {
-  Cube,
-  DotsThreeOutline,
-  Pencil,
-  Trash,
-} from "phosphor-react";
+import { Cube, DotsThreeOutline, Pencil, Trash } from "phosphor-react";
 
 const MyDonationReq = () => {
   const { user } = useAuthProvider();
-  const [donationReq] = useDonationReqCard();
-  console.log(donationReq);
+  const [donationReq, refetch] = useDonationReqCard();
+  const axiosSecure = useAxiosSecure();
+
+  const handelDeleteDonation = (id) => {
+    Swal.fire({
+      title: "Are you sure? You want to delete this request",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/donationRequest/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+          }
+        });
+      }
+    });
+  };
 
   return (
     <div className="lg:flex justify-center items-center min-h-screen">
@@ -105,7 +121,17 @@ const MyDonationReq = () => {
                       </p>
                     </Table.Cell>
                     <Table.Cell>
-                    <Button className={`border ${(card.Status === 'Inprogress to Done')? 'border-green-500' : 'border-red-600'}`} size="md" type="outlinePrimary">{card.Status}</Button>
+                      <Button
+                        className={`border ${
+                          card.Status === "Inprogress to Done"
+                            ? "border-green-500"
+                            : "border-red-600"
+                        }`}
+                        size="md"
+                        type="outlinePrimary"
+                      >
+                        {card.Status}
+                      </Button>
                     </Table.Cell>
                     <Table.Cell>
                       <Popover
@@ -115,7 +141,10 @@ const MyDonationReq = () => {
                         additionalContent={
                           <ul className="flex flex-col gap-1">
                             <li className="hover:bg-metal-100 py-1 px-2 rounded">
-                              <button className="w-full flex items-center justify-between text-body-4 font-normal text-metal-600">
+                              <button
+                                onClick={() => handelDeleteDonation(card._id)}
+                                className="w-full flex items-center justify-between text-body-4 font-normal text-metal-600"
+                              >
                                 <span>Delete</span>
                                 <span>
                                   <Trash />

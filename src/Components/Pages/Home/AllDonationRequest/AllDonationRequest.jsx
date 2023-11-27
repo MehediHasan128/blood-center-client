@@ -6,6 +6,7 @@ import { Cube } from "phosphor-react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { TiTickOutline } from "react-icons/ti";
+import { ImCross } from "react-icons/im";
 
 
 const AllDonationRequest = () => {
@@ -18,8 +19,7 @@ const AllDonationRequest = () => {
     
     const donationRequest = allRequest.filter(req => req.requesterEmail !== userEmail);
 
-    const handelRequestDone = (id) =>{
-        const Status = 'Inprogress to Done'
+    const handelRequestDone = (id, Status) =>{
         axiosSecure.patch(`/donationRequest/${id}`, {Status})
         .then(res =>{
             if(res.data.modifiedCount > 0){
@@ -132,11 +132,15 @@ const AllDonationRequest = () => {
                     {
                         (card.Status === 'Pending') ?
                         <div className="flex gap-2">
-                            <Button onClick={() => handelRequestDone(card._id)} className="border border-green-600 dark:bg-slate-500" size="md" type="outlinePrimary">Done</Button>
-                            <Button className="border border-red-600 dark:bg-slate-500" size="md" type="outlinePrimary">Canceled</Button>
+                            <Button onClick={() => handelRequestDone(card._id, 'Inprogress to Done')} className="border border-green-600 dark:bg-slate-500" size="md" type="outlinePrimary">Done</Button>
+                            <Button onClick={() => handelRequestDone(card._id, 'Inprogress to Cancel')} className="border border-red-600 dark:bg-slate-500" size="md" type="outlinePrimary">Canceled</Button>
                         </div> :
                         <>
-                        <TiTickOutline className="text-4xl text-green-500" />
+                        {
+                          card.Status === 'Inprogress to Done' ? 
+                          <TiTickOutline className="text-4xl text-green-500" /> :
+                          <ImCross className="text-4xl text-red-500" />
+                        }
                         </>
                     }
                     </Table.Cell>

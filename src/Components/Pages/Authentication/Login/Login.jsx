@@ -33,7 +33,7 @@ const Login = () => {
           <img className="h-full object-cover" src={loginBg} alt="" />
         </div>
         <div className="lg:w-[50%] bg-slate-50 dark:bg-zinc-700 py-14">
-          <h1 className="text-4xl text-center dark:text-white">Register as a doner</h1>
+          <h1 className="text-4xl text-center dark:text-white">Please Login</h1>
           <form onSubmit={handleSubmit(onSubmit)} className="w-[80%] mx-auto mt-8 space-y-5">
             
             <div className="px-5 py-2 flex items-center gap-3 border rounded-md">
