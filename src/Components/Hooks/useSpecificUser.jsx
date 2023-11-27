@@ -7,14 +7,14 @@ const useSpecificUser = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuthProvider();
 
-    const {data: specificUser = []} = useQuery({
+    const {data: specificUser = [], refetch} = useQuery({
         queryKey: ['user', user?.email],
         queryFn: async() =>{
             const res = await axiosSecure.get(`/users/${user.email}`)
             return res.data;
         }
     });
-    return [specificUser]
+    return [specificUser, refetch]
 };
 
 export default useSpecificUser;

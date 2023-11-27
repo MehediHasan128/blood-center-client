@@ -13,8 +13,8 @@ import AllDonationReq from "../Pages/DashBoard/Admin/AllDonationReq/AllDonationR
 import AllUsers from "../Pages/DashBoard/Admin/AllUsers/AllUsers";
 import AdminRoute from "./AdminRoute";
 import Profile from "../Pages/DashBoard/Profile/Profile";
-import UpdateDonation from "../Pages/DashBoard/UpdateDonation/UpdateDonation";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import ProfileUpdate from "../Pages/DashBoard/ProfileUpdate/ProfileUpdate";
 
 const router = createBrowserRouter([
     {
@@ -63,8 +63,8 @@ const router = createBrowserRouter([
                 element: <Profile />
             },
             {
-                path: 'updateDonation/:id',
-                element: <UpdateDonation />
+                path: '/dashBoard/profileUpdate',
+                element: <ProfileUpdate />
             },
 
 

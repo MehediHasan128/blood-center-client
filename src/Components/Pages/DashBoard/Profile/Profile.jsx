@@ -1,7 +1,9 @@
 import { Avatar } from "keep-react";
 import useSpecificUser from "../../../Hooks/useSpecificUser";
 import { FaDroplet } from "react-icons/fa6";
+import { TiPencil } from "react-icons/ti";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const [specificUser] = useSpecificUser();
@@ -48,6 +50,13 @@ const Profile = () => {
               </div>
             </div>
           </div>
+
+          <Link to='/dashBoard/profileUpdate'>
+          <button className="flex items-center text-xl mt-10 gap-3 bg-red-700 hover:bg-red-900 duration-700 px-5 py-3 text-white rounded-md">
+          <TiPencil className="text-2xl" />
+          Update profile
+          </button>
+          </Link>
         </div>
       </div>
     </div>
