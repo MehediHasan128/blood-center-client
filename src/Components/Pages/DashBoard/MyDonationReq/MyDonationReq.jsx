@@ -5,6 +5,8 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useDonationReqCard from "../../../Hooks/useDonationReqCard";
 import { Badge, Button, Popover, Table } from "keep-react";
 import { Cube, DotsThreeOutline, Pencil, Trash } from "phosphor-react";
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 
 const MyDonationReq = () => {
   const { user } = useAuthProvider();
@@ -32,6 +34,9 @@ const MyDonationReq = () => {
 
   return (
     <div className="lg:flex justify-center items-center min-h-screen">
+      <Helmet>
+        <title>Blood Center/My Donation</title>
+      </Helmet>
       <div>
         <div className="text-center md:text-2xl lg:text-4xl font-bold lg:font-semibold">
           <h1>
@@ -152,12 +157,14 @@ const MyDonationReq = () => {
                               </button>
                             </li>
                             <li className="hover:bg-metal-100 py-1 px-2 rounded">
+                              <Link to={`updateDonation/${card._id}`}>
                               <button className="w-full flex items-center justify-between text-body-4 font-normal text-metal-600">
                                 <span>Edit</span>
                                 <span>
                                   <Pencil />
                                 </span>
                               </button>
+                              </Link>
                             </li>
                           </ul>
                         }

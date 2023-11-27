@@ -3,30 +3,32 @@ import useAllUsers from "../../../../Hooks/useAllUsers";
 import { Avatar, Badge, Table } from "keep-react";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const AllUsers = () => {
   const [allUser, refetch] = useAllUsers();
   const users = allUser.filter((u) => u.role !== "Admin");
   const axiosSecure = useAxiosSecure();
 
-  const handelBlockUser = (id, status) =>{
-    axiosSecure.patch(`/users/${id}`, {status})
-    .then(res => {
-        if(res.data.modifiedCount > 0){
-            refetch();
-            Swal.fire({
-                icon: "success",
-                title: `User ${status}`,
-                showConfirmButton: false,
-                timer: 1000
-              });
-        }
-    })
-    
-  }
+  const handelBlockUser = (id, status) => {
+    axiosSecure.patch(`/users/${id}`, { status }).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        Swal.fire({
+          icon: "success",
+          title: `User ${status}`,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
+    });
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen">
+      <Helmet>
+        <title>Blood Center/All Users</title>
+      </Helmet>
       <div>
         <h1 className="text-4xl font-bold mb-10">All Users</h1>
         <div>
@@ -78,7 +80,13 @@ const AllUsers = () => {
                       </div>
                     </Table.Cell>
                     <Table.Cell>
-                      <Badge className={`font-semibold ${user.status === 'Active' ? 'text-green-500' : 'text-red-700'}`}>
+                      <Badge
+                        className={`font-semibold ${
+                          user.status === "Active"
+                            ? "text-green-500"
+                            : "text-red-700"
+                        }`}
+                      >
                         {user.status}
                       </Badge>
                     </Table.Cell>
@@ -87,15 +95,21 @@ const AllUsers = () => {
                     </Table.Cell>
                     <Table.Cell>{user.email}</Table.Cell>
                     <Table.Cell>
-                     {
-                        (user.status === 'Active') ?
-                        <button onClick={() =>handelBlockUser(user._id, 'Blocked')} className="border border-red-700 px-4 py-2 rounded-md -mb-0.5 text-body-4 font-medium text-metal-600">
-                        Block
-                      </button> :
-                       <button onClick={() =>handelBlockUser(user._id, 'Active')} className="border border-red-700 px-4 py-2 rounded-md -mb-0.5 text-body-4 font-medium text-metal-600">
-                       Unblock
-                     </button>
-                     }
+                      {user.status === "Active" ? (
+                        <button
+                          onClick={() => handelBlockUser(user._id, "Blocked")}
+                          className="border border-red-700 px-4 py-2 rounded-md -mb-0.5 text-body-4 font-medium text-metal-600"
+                        >
+                          Block
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handelBlockUser(user._id, "Active")}
+                          className="border border-red-700 px-4 py-2 rounded-md -mb-0.5 text-body-4 font-medium text-metal-600"
+                        >
+                          Unblock
+                        </button>
+                      )}
                     </Table.Cell>
                   </Table.Row>
                 </>
