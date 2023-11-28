@@ -157,7 +157,7 @@ const MyDonationReq = () => {
                               </button>
                             </li>
                             <li className="hover:bg-metal-100 py-1 px-2 rounded">
-                              <Link to={`updateDonation/${card._id}`}>
+                              <Link to={`/dashBoard/updateDonation/${card._id}`}>
                               <button className="w-full flex items-center justify-between text-body-4 font-normal text-metal-600">
                                 <span>Edit</span>
                                 <span>

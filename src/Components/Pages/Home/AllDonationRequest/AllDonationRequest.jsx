@@ -2,7 +2,6 @@
 import useAllRequest from "../../../Hooks/useAllRequest";
 import useAuthProvider from "../../../Hooks/useAuthProvider";
 import { Badge, Button, Table } from "keep-react";
-import { Cube } from "phosphor-react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { TiTickOutline } from "react-icons/ti";
@@ -54,20 +53,6 @@ const AllDonationRequest = () => {
               <Badge size="xs" colorType="light" color="gray">
                 {donationRequest.length}
               </Badge>
-            </div>
-            <div className="flex items-center gap-5">
-              <Button type="outlineGray" size="sm" className="dark:bg-zinc-700">
-                <span className="pr-2">
-                  <Cube size={24} />
-                </span>
-                New member
-              </Button>
-              <Button type="outlineGray" size="sm" className="dark:bg-zinc-700">
-                <span className="pr-2">
-                  <Cube size={24} />
-                </span>
-                Search
-              </Button>
             </div>
           </div>
         </Table.Caption>

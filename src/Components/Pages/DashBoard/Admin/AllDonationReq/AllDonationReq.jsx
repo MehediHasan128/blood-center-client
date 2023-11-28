@@ -1,6 +1,6 @@
 "use client";
 import { Badge, Button, Popover, Table } from "keep-react";
-import { Cube, DotsThreeOutline, Pencil, Trash } from "phosphor-react";
+import { DotsThreeOutline, Pencil, Trash } from "phosphor-react";
 import useAllRequest from "../../../../Hooks/useAllRequest";
 import { Helmet } from "react-helmet-async";
 
@@ -33,20 +33,6 @@ const AllDonationReq = () => {
                   <Badge size="xs" colorType="light" color="gray">
                     {allRequest.length}
                   </Badge>
-                </div>
-                <div className="flex items-center gap-5">
-                  <Button type="outlineGray" size="sm">
-                    <span className="pr-2">
-                      <Cube size={24} />
-                    </span>
-                    New member
-                  </Button>
-                  <Button type="outlineGray" size="sm">
-                    <span className="pr-2">
-                      <Cube size={24} />
-                    </span>
-                    Search
-                  </Button>
                 </div>
               </div>
             </Table.Caption>

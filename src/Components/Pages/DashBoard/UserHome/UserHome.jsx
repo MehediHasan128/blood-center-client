@@ -1,30 +1,16 @@
-"use client";
-import { Helmet } from "react-helmet-async";
-import useAuthProvider from "../../../Hooks/useAuthProvider";
-import useAdmin from "../../../Hooks/useAdmin";
-import AdminHome from "../AdminHome/AdminHome";
-import UserHome from "../UserHome/UserHome";
 
-const DashBoardHome = () => {
-  const { user } = useAuthProvider();
+import useDonationReqCard from "../../../Hooks/useDonationReqCard";
+import { Button, Table } from "keep-react";
 
-  const [isAdmin] = useAdmin();
+const UserHome = () => {
 
-  return (
-    <div className="container mx-auto flex justify-center items-center min-h-screen">
-      <Helmet>
-        <title>Blood Center/DashBoard Home</title>
-      </Helmet>
-      <div>
-        <h1 className="text-7xl font-semibold">
-          <span className="text-red-700">Wlcome</span> {user?.displayName}
-        </h1>
-        <div className="mt-20">
-          <div className="mt-10">
-            {
-              isAdmin ? <AdminHome /> : <UserHome />
-            }
-          {/* <Table>
+    const [donationReq] = useDonationReqCard();
+
+    return (
+        <div>
+           <h1 className="text-3xl font-medium">Your Recent Donation Request</h1>
+            <div className="mt-10">
+                <Table>
             <Table.Head className="bg-slate-100">
               <Table.HeadCell className="min-w-[120px] lg:min-w-[160px]">
                 Recipitent Name
@@ -92,12 +78,10 @@ const DashBoardHome = () => {
                 </>
               ))}
             </Table.Body>
-          </Table> */}
-          </div>
+          </Table>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
-export default DashBoardHome;
+export default UserHome;

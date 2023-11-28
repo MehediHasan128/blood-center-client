@@ -29,14 +29,16 @@ const Registration = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axiosPublic.get("/districts").then((res) => {
+    axiosPublic.get("/districts")
+    .then((res) => {
       setDistricts(res.data);
     });
   }, [axiosPublic]);
 
   const handelFindUpazila = (e) => {
     const districtName = e.target.value;
-    axiosPublic.get(`/upazila/${districtName}`).then((res) => {
+    axiosPublic.get(`/upazila/${districtName}`)
+    .then((res) => {
       setUpazila(res.data);
     });
   };

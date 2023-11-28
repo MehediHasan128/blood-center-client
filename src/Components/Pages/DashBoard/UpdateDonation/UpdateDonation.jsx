@@ -6,9 +6,13 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useSpecificUser from "../../../Hooks/useSpecificUser";
 import { Helmet } from "react-helmet-async";
-import moment from "moment/moment";
+import { useLoaderData } from "react-router-dom";
 
-const DonationRequest = () => {
+const UpdateDonation = () => {
+
+
+
+    const donation = useLoaderData();
   const { user } = useAuthProvider();
   const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
@@ -34,38 +38,36 @@ const DonationRequest = () => {
   };
 
   const onSubmit = (data) => {
-    const recipientName = data.recipientName;
-    const recipientBloodGroup = data.recipientBloodGroup;
-    const recipientDistrict = data.recipientDistrict;
-    const recipientUpazila = data.recipientUpazila;
-    const hospitalName = data.hospitalName;
-    const fullAddress = data.fullAddress;
-    const reciptionDate = data.date;
-    const reciptionTime = data.time;
-    const donationRequestTime = moment().format("h:mm:ss a");
+    const updatedRecipientName = data.recipientName;
+    const updatedRecipientBloodGroup = data.recipientBloodGroup;
+    const updatedRecipientDistrict = data.recipientDistrict;
+    const updatedRecipientUpazila = data.recipientUpazila;
+    const updatedHospitalName = data.hospitalName;
+    const updatedFullAddress = data.fullAddress;
+    const updatedReciptionDate = data.date;
+    const updatedReciptionTime = data.time;
 
-    const requestInformation = {
+    const updatedInformation = {
       requesterName,
       requesterEmail,
-      recipientName,
-      recipientBloodGroup,
-      recipientDistrict,
-      recipientUpazila,
-      hospitalName,
-      fullAddress,
-      reciptionDate,
-      reciptionTime,
-      donationRequestTime,
-      Status: "Pending",
+      updatedRecipientName,
+      updatedRecipientBloodGroup,
+      updatedRecipientDistrict,
+      updatedRecipientUpazila,
+      updatedHospitalName,
+      updatedFullAddress,
+      updatedReciptionDate,
+      updatedReciptionTime
     };
 
     if (specificUser.status === "Active") {
-      axiosSecure.post("/donationRequest", requestInformation).then((res) => {
+      axiosSecure.put(`/updatedDonation/${donation._id}`, updatedInformation)
+      .then((res) => {
         if (res.data.acknowledged) {
           reset();
           Swal.fire({
             icon: "success",
-            title: `${requesterName} you request successfull added`,
+            title: `${requesterName} you request successfull updated`,
             showConfirmButton: false,
             timer: 1000,
           });
@@ -80,8 +82,10 @@ const DonationRequest = () => {
     }
   };
 
-  return (
-    <div className="flex justify-center items-center min-h-screen mb-20 lg:mb-0">
+
+
+    return (
+        <div className="flex justify-center items-center min-h-screen mb-20 lg:mb-0">
       <Helmet>
         <title>Blood Center/Donation Request</title>
       </Helmet>
@@ -135,6 +139,7 @@ const DonationRequest = () => {
                   <input
                     className="block w-full px-5 py-3 border rounded-md mt-2"
                     type="text"
+                    defaultValue={donation.recipientName}
                     {...register("recipientName")}
                     placeholder="Enter the recipient name"
                   />
@@ -143,9 +148,12 @@ const DonationRequest = () => {
                   <label className="font-semibold">Blood Group</label>
                   <select
                     {...register("recipientBloodGroup")}
+                    defaultValue={donation.recipientBloodGroup}
                     className="block w-full px-5 py-3 border rounded-md mt-2"
                   >
-                    <option value="">--- Blood Group ---</option>
+                    <option value={donation.recipientBloodGroup}>
+                      {donation.recipientBloodGroup}
+                    </option>
                     <option value="A+">A+</option>
                     <option value="A-">A-</option>
                     <option value="B+">B+</option>
@@ -168,7 +176,9 @@ const DonationRequest = () => {
                     })}
                     className="block w-full px-5 py-3 border rounded-md mt-2"
                   >
-                    <option value="">--- Select District ---</option>
+                    <option value={donation.recipientDistrict}>
+                      {donation.recipientDistrict}
+                    </option>
                     {districts.map((district) => (
                       <option key={district._id} value={district.name}>
                         {district.name}
@@ -182,7 +192,9 @@ const DonationRequest = () => {
                     {...register("recipientUpazila")}
                     className="block w-full px-5 py-3 border rounded-md mt-2"
                   >
-                    <option value="">--- Select Upazila ---</option>
+                    <option value={donation.recipientUpazila}>
+                      {donation.recipientUpazila}
+                    </option>
                     {upazila.map((zila) => (
                       <option key={zila._id} value={zila.name}>
                         {zila.name}
@@ -197,6 +209,7 @@ const DonationRequest = () => {
                   <input
                     className="block w-full px-5 py-3 border rounded-md mt-2"
                     type="text"
+                    defaultValue={donation.hospitalName}
                     {...register("hospitalName")}
                     placeholder="Hospital Name"
                   />
@@ -206,6 +219,7 @@ const DonationRequest = () => {
                   <input
                     className="block w-full px-5 py-3 border rounded-md mt-2"
                     type="text"
+                    defaultValue={donation.fullAddress}
                     {...register("fullAddress")}
                     placeholder="Full Address"
                   />
@@ -217,6 +231,7 @@ const DonationRequest = () => {
                   <input
                     type="date"
                     className="block w-full px-5 py-3 border rounded-md mt-2"
+                    defaultValue={donation.reciptionDate}
                     {...register("date")}
                   />
                 </div>
@@ -225,6 +240,7 @@ const DonationRequest = () => {
                   <input
                     type="time"
                     className="block w-full px-5 py-3 border rounded-md mt-2"
+                    defaultValue={donation.reciptionTime}
                     {...register("time")}
                   />
                 </div>
@@ -242,7 +258,8 @@ const DonationRequest = () => {
         </div>
       </div>
     </div>
-  );
+    );
 };
 
-export default DonationRequest;
+export default UpdateDonation;
+

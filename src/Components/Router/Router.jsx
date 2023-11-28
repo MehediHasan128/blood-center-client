@@ -15,6 +15,7 @@ import AdminRoute from "./AdminRoute";
 import Profile from "../Pages/DashBoard/Profile/Profile";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import ProfileUpdate from "../Pages/DashBoard/ProfileUpdate/ProfileUpdate";
+import UpdateDonation from "../Pages/DashBoard/UpdateDonation/UpdateDonation";
 
 const router = createBrowserRouter([
     {
@@ -65,6 +66,11 @@ const router = createBrowserRouter([
             {
                 path: '/dashBoard/profileUpdate',
                 element: <ProfileUpdate />
+            },
+            {
+                path: '/dashBoard/updateDonation/:id',
+                element: <UpdateDonation />,
+                loader: ({params}) => fetch(`http://localhost:5000/updateDonation/${params.id}`)
             },
 
 
