@@ -87,12 +87,11 @@ const UpdateDonation = () => {
     return (
         <div className="flex justify-center items-center min-h-screen mb-20 lg:mb-0">
       <Helmet>
-        <title>Blood Center/Donation Request</title>
+        <title>Blood Center/Update Donation Request</title>
       </Helmet>
       <div className="w-[90%]">
         <h1 className="text-2xl lg:text-4xl font-bold text-center leading-relaxed">
-          If you need a drop of <span className="text-red-700">blood</span>{" "}
-          <br /> just fill the request form
+          Update <span className="text-red-700">Donation</span>
         </h1>
         <div className="mt-10 lg:mt-20">
           <form
