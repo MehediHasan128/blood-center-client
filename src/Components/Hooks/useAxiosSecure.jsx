@@ -3,7 +3,7 @@ import axios from "axios";
 // import useAuthProvider from "./useAuthProvider";
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000/'
+    baseURL: 'https://blood-center-server.vercel.app/'
 })
 
 const useAxiosSecure = () => {
