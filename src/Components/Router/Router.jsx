@@ -70,7 +70,7 @@ const router = createBrowserRouter([
             {
                 path: '/dashBoard/updateDonation/:id',
                 element: <UpdateDonation />,
-                loader: ({params}) => fetch(`http://localhost:5000/updateDonation/${params.id}`)
+                loader: ({params}) => fetch(`https://blood-center-server.vercel.app/${params.id}`)
             },
 
 

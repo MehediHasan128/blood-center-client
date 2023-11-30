@@ -4,7 +4,7 @@ import useAuthProvider from "../../../Hooks/useAuthProvider";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useDonationReqCard from "../../../Hooks/useDonationReqCard";
 import { Badge, Button, Popover, Table } from "keep-react";
-import { Cube, DotsThreeOutline, Pencil, Trash } from "phosphor-react";
+import { DotsThreeOutline, Pencil, Trash } from "phosphor-react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
@@ -55,20 +55,6 @@ const MyDonationReq = () => {
                   <Badge size="xs" colorType="light" color="gray">
                     {donationReq.length}
                   </Badge>
-                </div>
-                <div className="flex items-center gap-5">
-                  <Button type="outlineGray" size="sm">
-                    <span className="pr-2">
-                      <Cube size={24} />
-                    </span>
-                    New member
-                  </Button>
-                  <Button type="outlineGray" size="sm">
-                    <span className="pr-2">
-                      <Cube size={24} />
-                    </span>
-                    Search
-                  </Button>
                 </div>
               </div>
             </Table.Caption>

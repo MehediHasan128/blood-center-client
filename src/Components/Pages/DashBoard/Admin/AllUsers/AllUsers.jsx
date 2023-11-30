@@ -1,11 +1,16 @@
 import useAllUsers from "../../../../Hooks/useAllUsers";
 ("use client");
-import { Avatar, Badge, Table } from "keep-react";
+import { Avatar, Badge, Button, Popover, Table } from "keep-react";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import { IoFilterSharp } from "react-icons/io5";
+import {
+  MdOutlineVolunteerActivism,
+  MdOutlineAdminPanelSettings,
+} from "react-icons/md";
 import { useState } from "react";
+import { DotsThreeOutline } from "phosphor-react";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -13,8 +18,6 @@ const AllUsers = () => {
   const users = allUser.filter((u) => u.role !== "Admin");
   const [filterActive, setFilterActive] = useState(false);
   const [filterUsers, setFilterUsers] = useState([]);
-  console.log(filterUsers);
-  console.log(filterActive);
 
   const handelBlockUser = (id, status) => {
     axiosSecure.patch(`/users/${id}`, { status }).then((res) => {
@@ -42,6 +45,20 @@ const AllUsers = () => {
       setFilterActive(false);
     }
   };
+
+  const handelChangeRole = (id, userRole) =>{
+    axiosSecure.patch(`/usersRole/${id}`, {userRole})
+    .then(res =>{
+      if(res.data.modifiedCount > 0){
+        Swal.fire({
+          icon: "success",
+          title: `Now this doner is ${userRole}`,
+          showConfirmButton: false,
+          timer: 1000
+        });
+      }
+    })
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -80,7 +97,9 @@ const AllUsers = () => {
                       className="focus:outline-none px-1 text-lg font-medium text-gray-500 cursor-pointer"
                       name="filter"
                     >
-                      <option value="" disabled selected>Filter</option>
+                      <option value="" disabled selected>
+                        Filter
+                      </option>
                       <option value="Users">All Users</option>
                       <option value="Active">Active</option>
                       <option value="Blocked">Blocked</option>
@@ -95,14 +114,15 @@ const AllUsers = () => {
                   User Name
                 </p>
               </Table.HeadCell>
+              <Table.HeadCell className="min-w-[240px]">
+                Email Address
+              </Table.HeadCell>
               <Table.HeadCell>Status</Table.HeadCell>
               <Table.HeadCell className="min-w-[152px]">
                 Blood Group
               </Table.HeadCell>
-              <Table.HeadCell className="min-w-[240px]">
-                Email Address
-              </Table.HeadCell>
               <Table.HeadCell className="min-w-[200px]">Action</Table.HeadCell>
+              <Table.HeadCell className="min-w-[100px]"></Table.HeadCell>
             </Table.Head>
             <Table.Body className="divide-y divide-gray-25">
               {filterActive ? (
@@ -128,6 +148,7 @@ const AllUsers = () => {
                             </div>
                           </div>
                         </Table.Cell>
+                        <Table.Cell>{user.email}</Table.Cell>
                         <Table.Cell>
                           <Badge
                             className={`font-semibold ${
@@ -139,10 +160,9 @@ const AllUsers = () => {
                             {user.status}
                           </Badge>
                         </Table.Cell>
-                        <Table.Cell>
+                        <Table.Cell className="text-center">
                           <p>{user.blodGroup}</p>
                         </Table.Cell>
-                        <Table.Cell>{user.email}</Table.Cell>
                         <Table.Cell>
                           {user.status === "Active" ? (
                             <button
@@ -163,6 +183,41 @@ const AllUsers = () => {
                               Unblock
                             </button>
                           )}
+                        </Table.Cell>
+                        <Table.Cell>
+                          <Popover
+                            showDismissIcon={false}
+                            showArrow={false}
+                            className="w-48 p-2 border border-metal-100"
+                            additionalContent={
+                              <ul className="flex flex-col gap-1">
+                                <li className="hover:bg-metal-100 py-1 px-2 rounded">
+                                  <button className="w-full flex items-center justify-between text-body-4 font-normal text-metal-600">
+                                    <span>Make Admin</span>
+                                    <span>
+                                      <MdOutlineAdminPanelSettings className="text-xl" />
+                                    </span>
+                                  </button>
+                                </li>
+                                <li className="hover:bg-metal-100 py-1 px-2 rounded">
+                                  <button className="w-full flex items-center justify-between text-body-4 font-normal text-metal-600">
+                                    <span>Make Volunteer</span>
+                                    <span>
+                                      <MdOutlineVolunteerActivism className="text-xl" />
+                                    </span>
+                                  </button>
+                                </li>
+                              </ul>
+                            }
+                          >
+                            <Button type="outlineGray" size="xs" circle={true}>
+                              <DotsThreeOutline
+                                size={14}
+                                color="#5E718D"
+                                weight="bold"
+                              />
+                            </Button>
+                          </Popover>
                         </Table.Cell>
                       </Table.Row>
                     </>
@@ -191,6 +246,7 @@ const AllUsers = () => {
                             </div>
                           </div>
                         </Table.Cell>
+                        <Table.Cell>{user.email}</Table.Cell>
                         <Table.Cell>
                           <Badge
                             className={`font-semibold ${
@@ -202,10 +258,9 @@ const AllUsers = () => {
                             {user.status}
                           </Badge>
                         </Table.Cell>
-                        <Table.Cell>
+                        <Table.Cell className="text-center">
                           <p>{user.blodGroup}</p>
                         </Table.Cell>
-                        <Table.Cell>{user.email}</Table.Cell>
                         <Table.Cell>
                           {user.status === "Active" ? (
                             <button
@@ -226,6 +281,41 @@ const AllUsers = () => {
                               Unblock
                             </button>
                           )}
+                        </Table.Cell>
+                        <Table.Cell>
+                          <Popover
+                            showDismissIcon={false}
+                            showArrow={false}
+                            className="w-48 p-2 border border-metal-100"
+                            additionalContent={
+                              <ul className="flex flex-col gap-1">
+                                <li className="hover:bg-metal-100 py-1 px-2 rounded">
+                                  <button onClick={() => handelChangeRole(user._id, 'Admin')}  className="w-full flex items-center justify-between text-body-4 font-normal text-metal-600">
+                                    <span>Make Admin</span>
+                                    <span>
+                                      <MdOutlineAdminPanelSettings className="text-xl" />
+                                    </span>
+                                  </button>
+                                </li>
+                                <li className="hover:bg-metal-100 py-1 px-2 rounded">
+                                  <button onClick={() => handelChangeRole(user._id, 'Volunteer')} className="w-full flex items-center justify-between text-body-4 font-normal text-metal-600">
+                                    <span>Make Volunteer</span>
+                                    <span>
+                                      <MdOutlineVolunteerActivism className="text-xl" />
+                                    </span>
+                                  </button>
+                                </li>
+                              </ul>
+                            }
+                          >
+                            <Button type="outlineGray" size="xs" circle={true}>
+                              <DotsThreeOutline
+                                size={14}
+                                color="#5E718D"
+                                weight="bold"
+                              />
+                            </Button>
+                          </Popover>
                         </Table.Cell>
                       </Table.Row>
                     </>
