@@ -1,6 +1,5 @@
 "use client";
-import { Badge, Button, Popover, Table } from "keep-react";
-import { DotsThreeOutline, Pencil, Trash } from "phosphor-react";
+import { Badge, Button, Table } from "keep-react";
 import useAllRequest from "../../../../Hooks/useAllRequest";
 import { Helmet } from "react-helmet-async";
 
@@ -53,7 +52,6 @@ const AllDonationReq = () => {
                 Location
               </Table.HeadCell>
               <Table.HeadCell className="min-w-[200px]">Status</Table.HeadCell>
-              <Table.HeadCell className="min-w-[100px]">Action</Table.HeadCell>
             </Table.Head>
             <Table.Body className="divide-y divide-gray-25">
               {allRequest.map((req) => (
@@ -102,41 +100,6 @@ const AllDonationReq = () => {
                       >
                         {req.Status}
                       </Button>
-                    </Table.Cell>
-                    <Table.Cell>
-                      <Popover
-                        showDismissIcon={false}
-                        showArrow={false}
-                        className="w-48 p-2 border border-metal-100"
-                        additionalContent={
-                          <ul className="flex flex-col gap-1">
-                            <li className="hover:bg-metal-100 py-1 px-2 rounded">
-                              <button className="w-full flex items-center justify-between text-body-4 font-normal text-metal-600">
-                                <span>Delete</span>
-                                <span>
-                                  <Trash />
-                                </span>
-                              </button>
-                            </li>
-                            <li className="hover:bg-metal-100 py-1 px-2 rounded">
-                              <button className="w-full flex items-center justify-between text-body-4 font-normal text-metal-600">
-                                <span>Edit</span>
-                                <span>
-                                  <Pencil />
-                                </span>
-                              </button>
-                            </li>
-                          </ul>
-                        }
-                      >
-                        <Button type="outlineGray" size="xs" circle={true}>
-                          <DotsThreeOutline
-                            size={14}
-                            color="#5E718D"
-                            weight="bold"
-                          />
-                        </Button>
-                      </Popover>
                     </Table.Cell>
                   </Table.Row>
                 </>
